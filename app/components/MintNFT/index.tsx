@@ -18,26 +18,23 @@ import { Formik, Form } from "formik";
 
 interface Values {
   recipient: string;
-  amount: string;
+  tokenID: string;
 }
 
-const MintToken: React.FC = () => {
+const MintNFT: React.FC = () => {
   const { address } = useWallet();
-  const { mint } = useNFTs();
+  const { mint, owner } = useNFTs();
 
   const onMint = async (values: Values) => {
     console.log("values: ", values);
     if (
-      values.amount &&
+      values.tokenID &&
       values.recipient &&
       ethers.utils.isAddress(values.recipient) &&
       address === owner
     ) {
-      console.log("minting toknes: ", values.amount);
-      await mintTokens(
-        values.recipient,
-        ethers.utils.parseEther(values.amount)
-      );
+      console.log("minting token: ", values.tokenID);
+      await mint(values.recipient, values.tokenID, `${values.tokenID}.json`);
     }
   };
 
@@ -48,18 +45,18 @@ const MintToken: React.FC = () => {
         boxSize={"xs"}
         heading={
           <Heading w={"100%"} variant="noShadow">
-            Mint tokens
+            Mint NFT
           </Heading>
         }
         variant="withHeader"
         bg="whiteAlpha.200"
       >
         <Text size="lg" textAlign={"center"}>
-          The owner of a contract can mint tokens
+          The owner of a contract can mint
         </Text>
         <Formik
           enableReinitialize
-          initialValues={{ recipient: "", amount: "0" }}
+          initialValues={{ recipient: "", tokenID: "0" }}
           onSubmit={async (values: Values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
             try {
@@ -85,22 +82,16 @@ const MintToken: React.FC = () => {
                     setFieldValue("recipient", e.target.value)
                   }
                 />
-                <NumberInput
-                  value={values.amount}
-                  color="white"
-                  placeholder="Amount to wrap"
-                  variant="outline"
-                  onChange={(e) => {
-                    setFieldValue("amount", e);
-                  }}
-                  min={0}
-                >
-                  <NumberInputField name="amount" borderRadius="none" />
-                  <NumberInputStepper>
-                    <NumberIncrementStepper />
-                    <NumberDecrementStepper />
-                  </NumberInputStepper>
-                </NumberInput>
+                <Input
+                  variant={"outline"}
+                  value={values.recipient}
+                  label="Token ID"
+                  name="tokenID"
+                  placeholder="Provide token ID"
+                  onChange={(e: any) =>
+                    setFieldValue("tokenID", e.target.value)
+                  }
+                />
               </FormControl>
               <Button
                 variant="solid"
@@ -119,4 +110,4 @@ const MintToken: React.FC = () => {
   );
 };
 
-export default MintToken;
+export default MintNFT;
