@@ -11,7 +11,7 @@ import { NetworkUserConfig } from "hardhat/types";
 import { resolve } from "path";
 import "solidity-coverage";
 
-import { accounts, nodeUrl } from "./utils/network";
+import { accounts, getMnemonic, nodeUrl } from "./utils/network";
 
 dotenvConfig({ path: resolve(__dirname, "./.env") });
 

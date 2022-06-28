@@ -14,14 +14,13 @@ import {
   ERC721_NFT,
   ERC721_NFT__factory,
 } from "../types/typechain";
-import TokenJSON from "../../evm/deployments/localhost/ERC20_Token.json";
-import NFTJSON from "../../evm/deployments/localhost/ERC721_NFT.json";
+import { contractAddresses } from "../utils/constants";
 
 const useTokenContract = () =>
-  useTypedContract<ERC20_Token>(TokenJSON.address, ERC20_Token__factory);
+  useTypedContract<ERC20_Token>(contractAddresses.erc20TokenAddress, ERC20_Token__factory);
 
 const useNFTContract = () =>
-  useTypedContract<ERC721_NFT>(NFTJSON.address, ERC721_NFT__factory);
+  useTypedContract<ERC721_NFT>(contractAddresses.erc721NFTAddress, ERC721_NFT__factory);
 
 export const useToken = () => {
   const { contract: token } = useTokenContract();
