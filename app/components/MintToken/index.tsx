@@ -23,7 +23,7 @@ interface Values {
 
 const MintToken: React.FC = () => {
   const { address } = useWallet();
-  const { mint } = useNFTs();
+  const { mintTokens, owner } = useToken();
 
   const onMint = async (values: Values) => {
     console.log("values: ", values);

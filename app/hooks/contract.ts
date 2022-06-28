@@ -1,4 +1,3 @@
-import { NFTMetaData } from "../types/global";
 import {
   ERC20_Token,
   ERC20_Token__factory,
@@ -14,7 +13,6 @@ import {
   useWallet,
   useWriteContract,
 } from "@raidguild/quiver";
-import { Contract } from "ethers";
 import _ from "lodash";
 import { useEffect, useState } from "react";
 
