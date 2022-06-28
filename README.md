@@ -1,6 +1,5 @@
 # summon-raid-app
 
-
 ## CODEBASE
 
 **APP**
@@ -12,3 +11,8 @@
 
 - [Solidity-template](https://github.com/PaulRBerg/solidity-template)
 - [Hardhat-deploy](https://github.com/wighawag/hardhat-deploy/tree/master)
+
+## TODO
+
+-[ ] Error handling and toasts
+-[ ] Add Graph module

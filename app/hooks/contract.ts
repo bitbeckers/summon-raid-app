@@ -1,13 +1,3 @@
-import { toast } from "@chakra-ui/react";
-import {
-  useReadContract,
-  useTokenBalance,
-  useTypedContract,
-  useWriteContract,
-} from "@raidguild/quiver";
-import { Contract } from "ethers";
-
-import _ from "lodash";
 import {
   ERC20_Token,
   ERC20_Token__factory,
@@ -15,6 +5,16 @@ import {
   ERC721_NFT__factory,
 } from "../types/typechain";
 import { contractAddresses } from "../utils/constants";
+import { toast } from "@chakra-ui/react";
+import {
+  useReadContract,
+  useTokenBalance,
+  useTypedContract,
+  useWallet,
+  useWriteContract,
+} from "@raidguild/quiver";
+import { Contract } from "ethers";
+import _ from "lodash";
 
 const useTokenContract = () =>
   useTypedContract<ERC20_Token>(
@@ -29,6 +29,7 @@ const useNFTContract = () =>
   );
 
 export const useToken = () => {
+  const { address } = useWallet();
   const { contract: token } = useTokenContract();
   const { mutate: mintTokens } = useWriteContract(token, "mint");
   const { mutate: transferOwnership } = useWriteContract(
@@ -38,7 +39,7 @@ export const useToken = () => {
 
   const { response: owner } = useReadContract(token, "owner", []);
 
-  const balance = useTokenBalance(token as Contract);
+  const balance = useTokenBalance(token as Contract, address, 2000);
 
   return {
     balance: balance?.toString(),
