@@ -17,14 +17,25 @@ import {
 import { contractAddresses } from "../utils/constants";
 
 const useTokenContract = () =>
-  useTypedContract<ERC20_Token>(contractAddresses.erc20TokenAddress, ERC20_Token__factory);
+  useTypedContract<ERC20_Token>(
+    contractAddresses.erc20TokenAddress,
+    ERC20_Token__factory
+  );
 
 const useNFTContract = () =>
-  useTypedContract<ERC721_NFT>(contractAddresses.erc721NFTAddress, ERC721_NFT__factory);
+  useTypedContract<ERC721_NFT>(
+    contractAddresses.erc721NFTAddress,
+    ERC721_NFT__factory
+  );
 
 export const useToken = () => {
   const { contract: token } = useTokenContract();
   const { mutate: mintTokens } = useWriteContract(token, "mint");
+  const { mutate: transferOwnership } = useWriteContract(
+    token,
+    "transferOwnership"
+  );
+
   const { response: owner } = useReadContract(token, "owner", []);
 
   const balance = useTokenBalance(token as Contract);
@@ -32,6 +43,7 @@ export const useToken = () => {
   return {
     balance: balance?.toString(),
     mintTokens,
+    transferOwnership,
     owner,
   };
 };

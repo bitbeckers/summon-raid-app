@@ -72,12 +72,14 @@ const config: HardhatUserConfig = {
     src: "./contracts",
   },
   namedAccounts: {
-    deployer: { default: 0 },
+    deployer: { default: 0, rinkeby: 0 },
     owner: {
       default: 1,
+      rinkeby: 0,
     },
     user: {
       default: 2,
+      rinkeby: 0,
     },
   },
   networks: {
