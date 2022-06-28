@@ -33,13 +33,14 @@ export interface ERC721_NFTInterface extends utils.Interface {
   functions: {
     "approve(address,uint256)": FunctionFragment;
     "balanceOf(address)": FunctionFragment;
+    "baseUri()": FunctionFragment;
     "getApproved(uint256)": FunctionFragment;
     "isApprovedForAll(address,address)": FunctionFragment;
     "name()": FunctionFragment;
     "owner()": FunctionFragment;
     "ownerOf(uint256)": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
-    "safeMint(address,string)": FunctionFragment;
+    "safeMint(address,uint256,string)": FunctionFragment;
     "safeTransferFrom(address,address,uint256)": FunctionFragment;
     "safeTransferFrom(address,address,uint256,bytes)": FunctionFragment;
     "setApprovalForAll(address,bool)": FunctionFragment;
@@ -54,6 +55,7 @@ export interface ERC721_NFTInterface extends utils.Interface {
     nameOrSignatureOrTopic:
       | "approve"
       | "balanceOf"
+      | "baseUri"
       | "getApproved"
       | "isApprovedForAll"
       | "name"
@@ -79,6 +81,7 @@ export interface ERC721_NFTInterface extends utils.Interface {
     functionFragment: "balanceOf",
     values: [PromiseOrValue<string>]
   ): string;
+  encodeFunctionData(functionFragment: "baseUri", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getApproved",
     values: [PromiseOrValue<BigNumberish>]
@@ -99,7 +102,11 @@ export interface ERC721_NFTInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "safeMint",
-    values: [PromiseOrValue<string>, PromiseOrValue<string>]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "safeTransferFrom(address,address,uint256)",
@@ -146,6 +153,7 @@ export interface ERC721_NFTInterface extends utils.Interface {
 
   decodeFunctionResult(functionFragment: "approve", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "balanceOf", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "baseUri", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "getApproved",
     data: BytesLike
@@ -288,6 +296,8 @@ export interface ERC721_NFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
+    baseUri(overrides?: CallOverrides): Promise<[string]>;
+
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -314,6 +324,7 @@ export interface ERC721_NFT extends BaseContract {
 
     safeMint(
       to: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
       uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
@@ -375,6 +386,8 @@ export interface ERC721_NFT extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
+  baseUri(overrides?: CallOverrides): Promise<string>;
+
   getApproved(
     tokenId: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
@@ -401,6 +414,7 @@ export interface ERC721_NFT extends BaseContract {
 
   safeMint(
     to: PromiseOrValue<string>,
+    tokenId: PromiseOrValue<BigNumberish>,
     uri: PromiseOrValue<string>,
     overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
@@ -462,6 +476,8 @@ export interface ERC721_NFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    baseUri(overrides?: CallOverrides): Promise<string>;
+
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -486,6 +502,7 @@ export interface ERC721_NFT extends BaseContract {
 
     safeMint(
       to: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
       uri: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -592,6 +609,8 @@ export interface ERC721_NFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
+    baseUri(overrides?: CallOverrides): Promise<BigNumber>;
+
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -618,6 +637,7 @@ export interface ERC721_NFT extends BaseContract {
 
     safeMint(
       to: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
       uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
@@ -680,6 +700,8 @@ export interface ERC721_NFT extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
+    baseUri(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     getApproved(
       tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
@@ -706,6 +728,7 @@ export interface ERC721_NFT extends BaseContract {
 
     safeMint(
       to: PromiseOrValue<string>,
+      tokenId: PromiseOrValue<BigNumberish>,
       uri: PromiseOrValue<string>,
       overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
