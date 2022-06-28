@@ -8,11 +8,10 @@
   "private": true,
   "workspaces": [
     "app",
-    "ethereum"
+    "evm"
   ],
   "scripts": {
     "start": "yarn workspace app dev",
-    "build": "yarn --cwd frontend build",
     "test": "yarn workspace evm test"
   }
 }
