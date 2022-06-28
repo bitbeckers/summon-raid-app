@@ -54,6 +54,12 @@ export const useToken = () => {
   };
 };
 
+export const useNFTs = () => {
+  const { address } = useWallet();
+  const { contract: nft } = useNFTContract();
+  const { mutate: mint } = useWriteContract(nft, "safeMint");
+}
+
 export const onError = (error: any) => {
   toast.notify(error?.data?.message || error.message, {
     status: "error",

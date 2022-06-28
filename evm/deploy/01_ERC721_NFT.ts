@@ -1,5 +1,5 @@
-import { HardhatRuntimeEnvironment } from "hardhat/types";
 import { DeployFunction } from "hardhat-deploy/types";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployments, getNamedAccounts } = hre; // we get the deployments and getNamedAccounts which are provided by hardhat-deploy.
@@ -11,7 +11,7 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   //uint256 totalCap
   await deploy("ERC721_NFT", {
     from: deployer,
-    args: [],
+    args: ["https://gateway.pinata.cloud/ipfs/QmaUK792RLARk4y3yZww1tnvu5GGAXdVqKYVr76dwrHVfp/"],
     log: true,
   });
 };
