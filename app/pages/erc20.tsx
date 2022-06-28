@@ -1,12 +1,12 @@
 import MintToken from "../components/MintToken";
 import TokenBalance from "../components/TokenBalance";
 import TransferOwnership from "../components/TransferOwnership";
-import { Flex, Heading } from "@raidguild/design-system";
+import { Flex, Heading, Stack } from "@raidguild/design-system";
 import type { NextPage } from "next";
 
 const ERC20: NextPage = () => {
   return (
-    <>
+    <Stack dir="column" w="100%" justify={"center"} align="center">
       <Heading size="3xl">Basic ERC20 interactions</Heading>
       <Flex
         gap={"1em"}
@@ -20,7 +20,7 @@ const ERC20: NextPage = () => {
         <MintToken />
         <TokenBalance />
       </Flex>
-    </>
+    </Stack>
   );
 };
 
