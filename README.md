@@ -16,3 +16,4 @@
 
 -[ ] Error handling and toasts
 -[ ] Add Graph module
+-[ ] Staking pools contract and tests

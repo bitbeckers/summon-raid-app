@@ -62,6 +62,7 @@ const TransferOwnership: React.FC = () => {
           <Form>
             <FormControl id="newOwner">
               <Input
+                variant={"outline"}
                 value={values.newAddress}
                 label="New owner address"
                 name="newAddress"

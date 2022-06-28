@@ -36,15 +36,20 @@ export const useToken = () => {
     token,
     "transferOwnership"
   );
+  const { mutate: transferTokenTo } = useWriteContract(
+    token,
+    "transfer"
+  );
 
   const { response: owner } = useReadContract(token, "owner", []);
 
-  const balance = useTokenBalance(token as Contract, address, 2000);
+  const balance = useTokenBalance(token as Contract, address || "", 2000);
 
   return {
     balance: balance?.toString(),
     mintTokens,
     transferOwnership,
+    transferTokenTo,
     owner,
   };
 };

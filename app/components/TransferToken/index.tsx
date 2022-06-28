@@ -21,11 +21,11 @@ interface Values {
   amount: string;
 }
 
-const MintToken: React.FC = () => {
+const TransferToken: React.FC = () => {
   const { address } = useWallet();
-  const { mintTokens, owner } = useToken();
+  const { transferTokenTo, owner } = useToken();
 
-  const onMint = async (values: Values) => {
+  const onTransfer = async (values: Values) => {
     console.log("values: ", values);
     if (
       values.amount &&
@@ -34,7 +34,7 @@ const MintToken: React.FC = () => {
       address === owner
     ) {
       console.log("minting toknes: ", values.amount);
-      await mintTokens(
+      await transferTokenTo(
         values.recipient,
         ethers.utils.parseEther(values.amount)
       );
@@ -48,14 +48,14 @@ const MintToken: React.FC = () => {
         boxSize={"xs"}
         heading={
           <Heading w={"100%"} variant="noShadow">
-            Mint tokens
+            Transfer tokens
           </Heading>
         }
         variant="withHeader"
         bg="whiteAlpha.200"
       >
-        <Text size="lg" textAlign={"center"}>
-          The owner of a contract can mint tokens
+        <Text textAlign={"center"}>
+          The user can transfer tokens, if they have sufficient balance.
         </Text>
         <Formik
           enableReinitialize
@@ -63,7 +63,7 @@ const MintToken: React.FC = () => {
           onSubmit={async (values: Values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
             try {
-              onMint(values);
+              onTransfer(values);
             } catch (err) {
               console.log(err);
             } finally {
@@ -88,7 +88,7 @@ const MintToken: React.FC = () => {
                 <NumberInput
                   value={values.amount}
                   color="white"
-                  placeholder="Amount to wrap"
+                  placeholder="Amount to send"
                   variant="outline"
                   onChange={(e) => {
                     setFieldValue("amount", e);
@@ -109,7 +109,7 @@ const MintToken: React.FC = () => {
                 loadingText="Submitting"
                 width="100%"
               >
-                MINT
+                TRANSFER
               </Button>
             </Form>
           )}
@@ -119,4 +119,4 @@ const MintToken: React.FC = () => {
   );
 };
 
-export default MintToken;
+export default TransferToken;

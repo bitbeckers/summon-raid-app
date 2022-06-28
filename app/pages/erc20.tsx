@@ -3,6 +3,7 @@ import TokenBalance from "../components/TokenBalance";
 import TransferOwnership from "../components/TransferOwnership";
 import { Flex, Heading, Stack } from "@raidguild/design-system";
 import type { NextPage } from "next";
+import TransferToken from "../components/TransferToken";
 
 const ERC20: NextPage = () => {
   return (
@@ -19,6 +20,7 @@ const ERC20: NextPage = () => {
         <TransferOwnership />
         <MintToken />
         <TokenBalance />
+        <TransferToken />
       </Flex>
     </Stack>
   );
