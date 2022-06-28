@@ -1,4 +1,3 @@
-import { parseEther } from "ethers/lib/utils";
 import { deployments } from "hardhat";
 
 const setupTest = deployments.createFixture(async ({ deployments, getNamedAccounts, ethers }) => {
