@@ -1,24 +1,17 @@
 {
   "name": "summon-raid-app",
-  "version": "0.1.0",
+  "version": "0.0.1",
+  "description": "quickly spin up a RG themed web3 dev env",
+  "main": "index.js",
+  "author": "bitbeckers <code@bitbeckers.com>",
+  "license": "MIT",
   "private": true,
+  "workspaces": [
+    "app",
+    "ethereum"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.1.6",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "18.0.0",
-    "@types/react": "18.0.14",
-    "@types/react-dom": "18.0.5",
-    "eslint": "8.18.0",
-    "eslint-config-next": "12.1.6",
-    "typescript": "4.7.4"
+    "start": "yarn workspace app dev",
+    "build": "yarn --cwd frontend build"
   }
 }
