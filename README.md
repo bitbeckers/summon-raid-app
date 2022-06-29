@@ -4,10 +4,12 @@
 
 1. `yarn` to install all packages and dependencies
 2. Create `.env` file in `./evm` based of `./evm/.env.example`
-3. `yarn local` in `./evm` to deploy a local instance
+   > for now, the mnemonic is the most important since this is local)
+3. run `yarn local` in `./evm` to deploy a local instance
+   > You should/could see an updated `./evm/deployments/localhost` folder
 4. Create `.env` file in `./app` based of `./app/env.local.example`
-5. Use addresses from `./evm/deployments/localhost` in `./app/.env`
-6. From root dir `./` run `yarn start`
+   > Use addresses from `./evm/deployments/localhost` in `./app/.env`
+5. From root dir `./` run `yarn start`
 
 Yarn start triggers, in order:
 
