@@ -1,5 +1,6 @@
-import { HardhatRuntimeEnvironment } from "hardhat/types";
+import { ethers } from "hardhat";
 import { DeployFunction } from "hardhat-deploy/types";
+import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployments, getNamedAccounts } = hre; // we get the deployments and getNamedAccounts which are provided by hardhat-deploy.
@@ -7,10 +8,14 @@ const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   const { deployer, owner } = await getNamedAccounts(); // Fetch the accounts. These can be configured in hardhat.config.ts as explained above.
 
-  //args: [address _owner]
-  await deploy("ERC20_Token", {
+  await deployments.get("ERC20_Token");
+
+  const token = await ethers.getContract("ERC20_Token");
+
+  //args [address owner, address _stakeToken]
+  await deploy("Staking_Pool", {
     from: deployer,
-    args: [owner],
+    args: [owner, token.address],
     log: true,
   });
 };
