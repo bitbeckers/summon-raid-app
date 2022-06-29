@@ -8,8 +8,11 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract ERC721_NFT is ERC721, ERC721URIStorage, Ownable {
     string public baseUri;
 
-    constructor(string memory _baseUri) ERC721("MockNFT", "MFT") {
+    constructor(address _owner, string memory _baseUri) ERC721("MockNFT", "MFT") {
         baseUri = _baseUri;
+        if(_owner != msg.sender){
+            transferOwnership(_owner);
+        }
     }
 
     function _baseURI() internal view override returns (string memory) {
