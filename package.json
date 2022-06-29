@@ -11,7 +11,7 @@
     "evm"
   ],
   "scripts": {
-    "start": "yarn workspace evm test && yarn workspace evm local & yarn workspace app dev",
+    "start": "yarn workspace evm test && yarn workspace evm typechain && yarn workspace evm local & yarn workspace app dev",
     "test": "yarn workspace evm test"
   }
 }

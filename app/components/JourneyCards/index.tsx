@@ -1,4 +1,5 @@
 import ConnectWallet from "../ConnectWallet";
+import { JourneyCard } from "../JourneyCard";
 import { RoleCard } from "../RoleCard";
 import {
   Stack,
@@ -11,12 +12,16 @@ import {
   Text,
 } from "@raidguild/design-system";
 import NextLink from "next/link";
-import { JourneyCard } from "../JourneyCard";
 
 const JourneyCards: React.FC<{}> = () => {
   const cards = [
     { title: "ERC20", content: "Play with ERC20", target: "/erc20" },
-    { title: "NFT", content: "Play with NFT", target: "/erc721" },
+    { title: "ERC721", content: "Play with NFT", target: "/erc721" },
+    {
+      title: "Staking",
+      content: "Play with staking pools",
+      target: "/staking",
+    },
   ];
   return (
     <Stack
