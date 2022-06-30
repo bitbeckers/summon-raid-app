@@ -8,10 +8,15 @@
   "private": true,
   "workspaces": [
     "app",
-    "evm"
+    "evm",
+    "graph"
   ],
   "scripts": {
-    "start": "yarn workspace evm test && yarn workspace evm typechain && yarn workspace evm local & yarn workspace app dev",
+    "prestart": "yarn workspace evm typechain && yarn workspace evm test",
+    "start:graph": "yarn workspace graph deploy:local",
+    "start:evm": "yarn workspace evm local",
+    "start:app": "yarn workspace app dev",
+    "start": " yarn start:evm & yarn start:app",
     "test": "yarn workspace evm test"
   }
 }

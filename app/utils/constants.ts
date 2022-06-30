@@ -12,6 +12,10 @@ export const checkEnvVarConfig = () => {
       name: "NEXT_PUBLIC_CONTRACT_ADDRESS_STAKING_POOL",
       value: process.env["NEXT_PUBLIC_CONTRACT_ADDRESS_STAKING_POOL"],
     },
+    {
+      name: "NEXT_PUBLIC_GRAPH_URL",
+      value: process.env["NEXT_PUBLIC_GRAPH_URL"],
+    },
   ];
 
   requiredEnvVarNames.forEach((envVarConfig) => {
@@ -28,4 +32,8 @@ export const contractAddresses = {
   erc20TokenAddress: process.env["NEXT_PUBLIC_CONTRACT_ADDRESS_ERC20_TOKEN"]!,
   erc721NFTAddress: process.env["NEXT_PUBLIC_CONTRACT_ADDRESS_ERC721_NFT"]!,
   stakingPoolAddress: process.env["NEXT_PUBLIC_CONTRACT_ADDRESS_STAKING_POOL"]!,
+};
+
+export const urls = {
+  graphUrl: process.env["NEXT_PUBLIC_GRAPH_URL"]!,
 };

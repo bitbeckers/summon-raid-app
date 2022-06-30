@@ -1,3 +1,4 @@
+import AllStakes from "../components/AllStakes";
 import Approve from "../components/Approve";
 import ClaimRewards from "../components/ClaimRewards";
 import DepositStake from "../components/DepositStake";
@@ -23,6 +24,7 @@ const ERC721: NextPage = () => {
         <StakeOverview />
         <WithdrawStake />
         <ClaimRewards />
+        <AllStakes />
       </Flex>
     </Stack>
   );
