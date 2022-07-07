@@ -1,4 +1,4 @@
-import MintToken from "../components/MintToken";
+import MintToken from "../components/ERC20/MintToken";
 import TokenBalance from "../components/TokenBalance";
 import TransferOwnership from "../components/TransferOwnership";
 import { Flex, Heading, Stack } from "@raidguild/design-system";

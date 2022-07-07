@@ -1,4 +1,4 @@
-import AllStakes from "../components/AllStakes";
+import AllStakes from "../components/Staking/AllStakes";
 import Approve from "../components/Approve";
 import ClaimRewards from "../components/ClaimRewards";
 import DepositStake from "../components/DepositStake";

@@ -1,4 +1,4 @@
-import MintNFT from "../components/MintNFT";
+import MintNFT from "../components/ERC721/MintNFT";
 import NFTBalance from "../components/NFTBalance";
 import ViewNFT from "../components/ViewNFT";
 import { Flex, Stack, Heading } from "@raidguild/design-system";

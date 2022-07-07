@@ -1,4 +1,4 @@
-import { useAllStakes } from "../../hooks/graph";
+import { useAllStakes } from "../../../hooks/graph";
 import { Text, Heading, Card } from "@raidguild/design-system";
 import { formatAddress } from "@raidguild/quiver";
 import { ethers } from "ethers";
