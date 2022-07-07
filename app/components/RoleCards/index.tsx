@@ -1,16 +1,5 @@
-import ConnectWallet from "../ConnectWallet";
 import { RoleCard } from "../RoleCard";
-import {
-  Stack,
-  Heading,
-  HStack,
-  Link,
-  Spacer,
-  Card,
-  RoleBadge,
-  Text,
-} from "@raidguild/design-system";
-import NextLink from "next/link";
+import { Stack } from "@raidguild/design-system";
 
 const RoleCards: React.FC<{}> = () => {
   const cards = [

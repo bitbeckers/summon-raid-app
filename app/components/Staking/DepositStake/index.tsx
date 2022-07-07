@@ -1,10 +1,9 @@
-import { useToken } from "../../hooks/contract";
+import { useStaking  } from "../../../hooks/contract";
 import {
   Text,
   Heading,
   Card,
   Button,
-  Input,
   FormControl,
   NumberInput,
   NumberDecrementStepper,
@@ -17,27 +16,16 @@ import { ethers } from "ethers";
 import { Formik, Form } from "formik";
 
 interface Values {
-  recipient: string;
   amount: string;
 }
 
-const TransferToken: React.FC = () => {
-  const { address } = useWallet();
-  const { transferTokenTo, owner } = useToken();
+const DepositStake: React.FC = () => {
+  const { stake } = useStaking();
 
-  const onTransfer = async (values: Values) => {
+  const onStake = async (values: Values) => {
     console.log("values: ", values);
-    if (
-      values.amount &&
-      values.recipient &&
-      ethers.utils.isAddress(values.recipient) &&
-      address === owner
-    ) {
-      console.log("minting toknes: ", values.amount);
-      await transferTokenTo(
-        values.recipient,
-        ethers.utils.parseEther(values.amount)
-      );
+    if (values.amount) {
+      await stake(ethers.utils.parseEther(values.amount));
     }
   };
 
@@ -48,22 +36,22 @@ const TransferToken: React.FC = () => {
         boxSize={"xs"}
         heading={
           <Heading w={"100%"} variant="noShadow">
-            Transfer tokens
+            Deposit
           </Heading>
         }
         variant="withHeader"
         bg="whiteAlpha.200"
       >
-        <Text textAlign={"center"}>
-          The user can transfer tokens, if they have sufficient balance.
+        <Text size="lg" textAlign={"center"}>
+          Put your funds in a staking pool
         </Text>
         <Formik
           enableReinitialize
-          initialValues={{ recipient: "", amount: "0" }}
+          initialValues={{ amount: "0" }}
           onSubmit={async (values: Values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
             try {
-              onTransfer(values);
+              onStake(values);
             } catch (err) {
               console.log(err);
             } finally {
@@ -74,21 +62,11 @@ const TransferToken: React.FC = () => {
         >
           {({ values, isSubmitting, setFieldValue }) => (
             <Form>
-              <FormControl id="newOwner">
-                <Input
-                  variant={"outline"}
-                  value={values.recipient}
-                  label="Recipient"
-                  name="recipient"
-                  placeholder="Provide token recipient address"
-                  onChange={(e: any) =>
-                    setFieldValue("recipient", e.target.value)
-                  }
-                />
+              <FormControl id="stake">
                 <NumberInput
                   value={values.amount}
                   color="white"
-                  placeholder="Amount to send"
+                  placeholder="Amount to wrap"
                   variant="outline"
                   onChange={(e) => {
                     setFieldValue("amount", e);
@@ -109,7 +87,7 @@ const TransferToken: React.FC = () => {
                 loadingText="Submitting"
                 width="100%"
               >
-                TRANSFER
+                STAKE
               </Button>
             </Form>
           )}
@@ -119,4 +97,4 @@ const TransferToken: React.FC = () => {
   );
 };
 
-export default TransferToken;
+export default DepositStake;

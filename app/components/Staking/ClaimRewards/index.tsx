@@ -1,9 +1,13 @@
-import { useStaking } from "../../hooks/contract";
-import { Text, Heading, Card } from "@raidguild/design-system";
+import { useStaking } from "../../../hooks/contract";
+import { Text, Heading, Card, Button } from "@raidguild/design-system";
 import { ethers } from "ethers";
 
-const StakeOverview: React.FC = () => {
-  const { stakedBalance, stakeRewards } = useStaking();
+const ClaimRewards: React.FC = () => {
+  const { claimRewards, stakeRewards } = useStaking();
+
+  const onClaim = async () => {
+    await claimRewards();
+  };
 
   return (
     <>
@@ -12,25 +16,32 @@ const StakeOverview: React.FC = () => {
         boxSize={"xs"}
         heading={
           <Heading w={"100%"} variant="noShadow">
-            Stake overview
+            Claim
           </Heading>
         }
         variant="withHeader"
         bg="whiteAlpha.200"
       >
         <Text size="lg" textAlign={"center"}>
-          {`Deposited: ${
-            stakedBalance ? ethers.utils.formatEther(stakedBalance) : "N/A"
-          }`}
+          Claim your staking rewards
         </Text>
         <Text size="lg" textAlign={"center"}>
           {`Rewards: ${
             stakeRewards ? ethers.utils.formatEther(stakeRewards) : "N/A"
           }`}
         </Text>
+
+        <Button
+          variant="solid"
+          type="submit"
+          width="100%"
+          onClick={() => onClaim()}
+        >
+          CLAIM
+        </Button>
       </Card>
     </>
   );
 };
 
-export default StakeOverview;
+export default ClaimRewards;

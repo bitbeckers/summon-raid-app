@@ -1,9 +1,9 @@
-import MintToken from "../components/MintToken";
-import TokenBalance from "../components/TokenBalance";
+import MintToken from "../components/ERC20/MintToken";
+import TokenBalance from "../components/ERC20/TokenBalance";
+import TransferToken from "../components/ERC20/TransferToken";
 import TransferOwnership from "../components/TransferOwnership";
 import { Flex, Heading, Stack } from "@raidguild/design-system";
 import type { NextPage } from "next";
-import TransferToken from "../components/TransferToken";
 
 const ERC20: NextPage = () => {
   return (

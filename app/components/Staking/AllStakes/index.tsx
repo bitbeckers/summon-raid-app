@@ -1,10 +1,10 @@
-import { useAllStakes } from "../../hooks/graph";
+import { useAllStakes } from "../../../hooks/graph";
 import { Text, Heading, Card } from "@raidguild/design-system";
 import { formatAddress } from "@raidguild/quiver";
 import { ethers } from "ethers";
 
 const AllStakes: React.FC = () => {
-  const { loading, allStakes } = useAllStakes();
+  const { allStakes } = useAllStakes();
 
   const userStake = (stake: StakeResponse) => {
     return (

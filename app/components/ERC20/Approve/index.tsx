@@ -1,10 +1,9 @@
-import { useNFTs, useStaking, useToken } from "../../hooks/contract";
+import { useStaking, useToken } from "../../../hooks/contract";
 import {
   Text,
   Heading,
   Card,
   Button,
-  Input,
   FormControl,
   NumberInput,
   NumberDecrementStepper,
@@ -12,7 +11,7 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@raidguild/design-system";
-import { useWallet } from "@raidguild/quiver";
+import { useReadContract, useWallet } from "@raidguild/quiver";
 import { ethers } from "ethers";
 import { Formik, Form } from "formik";
 
@@ -20,14 +19,20 @@ interface Values {
   amount: string;
 }
 
-const DepositStake: React.FC = () => {
+const Approve: React.FC = () => {
   const { address } = useWallet();
-  const { stake } = useStaking();
+  const { approve, token } = useToken();
+  const { staking } = useStaking();
 
-  const onStake = async (values: Values) => {
+  const { response: allowance } = useReadContract(token, "allowance", [
+    address || "",
+    staking?.address || "",
+  ]);
+
+  const onApprove = async (values: Values) => {
     console.log("values: ", values);
-    if (values.amount) {
-      await stake(ethers.utils.parseEther(values.amount));
+    if (values.amount && staking?.address && address) {
+      await approve(staking?.address, ethers.utils.parseEther(values.amount));
     }
   };
 
@@ -38,14 +43,19 @@ const DepositStake: React.FC = () => {
         boxSize={"xs"}
         heading={
           <Heading w={"100%"} variant="noShadow">
-            Deposit
+            Approve
           </Heading>
         }
         variant="withHeader"
         bg="whiteAlpha.200"
       >
         <Text size="lg" textAlign={"center"}>
-          Put your funds in a staking pool
+          Approve staking contract access to your tokens
+        </Text>
+        <Text size="lg" textAlign={"center"}>
+          {`Current allowance: ${
+            allowance ? ethers.utils.formatEther(allowance) : "N/A"
+          }`}
         </Text>
         <Formik
           enableReinitialize
@@ -53,7 +63,7 @@ const DepositStake: React.FC = () => {
           onSubmit={async (values: Values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
             try {
-              onStake(values);
+              onApprove(values);
             } catch (err) {
               console.log(err);
             } finally {
@@ -89,7 +99,7 @@ const DepositStake: React.FC = () => {
                 loadingText="Submitting"
                 width="100%"
               >
-                STAKE
+                ALLOW
               </Button>
             </Form>
           )}
@@ -99,4 +109,4 @@ const DepositStake: React.FC = () => {
   );
 };
 
-export default DepositStake;
+export default Approve;

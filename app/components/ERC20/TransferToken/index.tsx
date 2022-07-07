@@ -1,4 +1,4 @@
-import { useNFTs, useStaking, useToken } from "../../hooks/contract";
+import { useToken } from "../../../hooks/contract";
 import {
   Text,
   Heading,
@@ -12,29 +12,32 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@raidguild/design-system";
-import { useReadContract, useWallet } from "@raidguild/quiver";
+import { useWallet } from "@raidguild/quiver";
 import { ethers } from "ethers";
 import { Formik, Form } from "formik";
-import { useEffect } from "react";
 
 interface Values {
+  recipient: string;
   amount: string;
 }
 
-const Approve: React.FC = () => {
+const TransferToken: React.FC = () => {
   const { address } = useWallet();
-  const { approve, token } = useToken();
-  const { stake, staking } = useStaking();
+  const { transferTokenTo, owner } = useToken();
 
-  const { response: allowance } = useReadContract(token, "allowance", [
-    address || "",
-    staking?.address || "",
-  ]);
-
-  const onApprove = async (values: Values) => {
+  const onTransfer = async (values: Values) => {
     console.log("values: ", values);
-    if (values.amount && staking?.address && address) {
-      await approve(staking?.address, ethers.utils.parseEther(values.amount));
+    if (
+      values.amount &&
+      values.recipient &&
+      ethers.utils.isAddress(values.recipient) &&
+      address === owner
+    ) {
+      console.log("minting toknes: ", values.amount);
+      await transferTokenTo(
+        values.recipient,
+        ethers.utils.parseEther(values.amount)
+      );
     }
   };
 
@@ -45,27 +48,22 @@ const Approve: React.FC = () => {
         boxSize={"xs"}
         heading={
           <Heading w={"100%"} variant="noShadow">
-            Approve
+            Transfer tokens
           </Heading>
         }
         variant="withHeader"
         bg="whiteAlpha.200"
       >
-        <Text size="lg" textAlign={"center"}>
-          Approve staking contract access to your tokens
-        </Text>
-        <Text size="lg" textAlign={"center"}>
-          {`Current allowance: ${
-            allowance ? ethers.utils.formatEther(allowance) : "N/A"
-          }`}
+        <Text textAlign={"center"}>
+          The user can transfer tokens, if they have sufficient balance.
         </Text>
         <Formik
           enableReinitialize
-          initialValues={{ amount: "0" }}
+          initialValues={{ recipient: "", amount: "0" }}
           onSubmit={async (values: Values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
             try {
-              onApprove(values);
+              onTransfer(values);
             } catch (err) {
               console.log(err);
             } finally {
@@ -76,11 +74,21 @@ const Approve: React.FC = () => {
         >
           {({ values, isSubmitting, setFieldValue }) => (
             <Form>
-              <FormControl id="stake">
+              <FormControl id="newOwner">
+                <Input
+                  variant={"outline"}
+                  value={values.recipient}
+                  label="Recipient"
+                  name="recipient"
+                  placeholder="Provide token recipient address"
+                  onChange={(e: any) =>
+                    setFieldValue("recipient", e.target.value)
+                  }
+                />
                 <NumberInput
                   value={values.amount}
                   color="white"
-                  placeholder="Amount to wrap"
+                  placeholder="Amount to send"
                   variant="outline"
                   onChange={(e) => {
                     setFieldValue("amount", e);
@@ -101,7 +109,7 @@ const Approve: React.FC = () => {
                 loadingText="Submitting"
                 width="100%"
               >
-                ALLOW
+                TRANSFER
               </Button>
             </Form>
           )}
@@ -111,4 +119,4 @@ const Approve: React.FC = () => {
   );
 };
 
-export default Approve;
+export default TransferToken;

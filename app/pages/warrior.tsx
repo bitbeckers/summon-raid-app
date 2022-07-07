@@ -4,12 +4,10 @@ import {
   Text,
   Heading,
   Card,
-  RoleBadge,
   Link,
 } from "@raidguild/design-system";
 import type { NextPage } from "next";
 import NextLink from "next/link";
-import { RoleCards } from "../components/RoleCards";
 
 const Warrior: NextPage = () => {
   return (

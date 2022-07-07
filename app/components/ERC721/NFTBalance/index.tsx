@@ -1,6 +1,5 @@
-import { useNFTs, useToken } from "../../hooks/contract";
+import { useNFTs } from "../../../hooks/contract";
 import { Text, Heading, Card, VStack } from "@raidguild/design-system";
-import { ethers } from "ethers";
 
 const NFTBalance: React.FC = () => {
   const { balance } = useNFTs();

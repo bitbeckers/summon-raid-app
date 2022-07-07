@@ -1,4 +1,4 @@
-import { Stack, BuiltByRaidGuildComponent, Box, Link, RaidGuild } from "@raidguild/design-system";
+import { Stack, Box, Link, RaidGuild } from "@raidguild/design-system";
 
 const Footer: React.FC<{}> = () => {
   return (

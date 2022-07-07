@@ -1,4 +1,4 @@
-import { useNFTs, useStaking, useToken } from "../../hooks/contract";
+import { useToken } from "../../../hooks/contract";
 import {
   Text,
   Heading,
@@ -17,17 +17,27 @@ import { ethers } from "ethers";
 import { Formik, Form } from "formik";
 
 interface Values {
+  recipient: string;
   amount: string;
 }
 
-const WithdrawStake: React.FC = () => {
+const MintToken: React.FC = () => {
   const { address } = useWallet();
-  const { withdraw } = useStaking();
+  const { mintTokens, owner } = useToken();
 
-  const onWithdraw = async (values: Values) => {
+  const onMint = async (values: Values) => {
     console.log("values: ", values);
-    if (values.amount) {
-      await withdraw(ethers.utils.parseEther(values.amount));
+    if (
+      values.amount &&
+      values.recipient &&
+      ethers.utils.isAddress(values.recipient) &&
+      address === owner
+    ) {
+      console.log("minting toknes: ", values.amount);
+      await mintTokens(
+        values.recipient,
+        ethers.utils.parseEther(values.amount)
+      );
     }
   };
 
@@ -38,22 +48,22 @@ const WithdrawStake: React.FC = () => {
         boxSize={"xs"}
         heading={
           <Heading w={"100%"} variant="noShadow">
-            Withdraw
+            Mint tokens
           </Heading>
         }
         variant="withHeader"
         bg="whiteAlpha.200"
       >
         <Text size="lg" textAlign={"center"}>
-          Withdraw your funds from a staking pool
+          The owner of a contract can mint tokens
         </Text>
         <Formik
           enableReinitialize
-          initialValues={{ amount: "0" }}
+          initialValues={{ recipient: "", amount: "0" }}
           onSubmit={async (values: Values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
             try {
-              onWithdraw(values);
+              onMint(values);
             } catch (err) {
               console.log(err);
             } finally {
@@ -64,7 +74,17 @@ const WithdrawStake: React.FC = () => {
         >
           {({ values, isSubmitting, setFieldValue }) => (
             <Form>
-              <FormControl id="stake">
+              <FormControl id="newOwner">
+                <Input
+                  variant={"outline"}
+                  value={values.recipient}
+                  label="Recipient"
+                  name="recipient"
+                  placeholder="Provide token recipient address"
+                  onChange={(e: any) =>
+                    setFieldValue("recipient", e.target.value)
+                  }
+                />
                 <NumberInput
                   value={values.amount}
                   color="white"
@@ -89,7 +109,7 @@ const WithdrawStake: React.FC = () => {
                 loadingText="Submitting"
                 width="100%"
               >
-                WITHDRAW
+                MINT
               </Button>
             </Form>
           )}
@@ -99,4 +119,4 @@ const WithdrawStake: React.FC = () => {
   );
 };
 
-export default WithdrawStake;
+export default MintToken;
