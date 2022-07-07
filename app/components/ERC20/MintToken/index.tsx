@@ -1,4 +1,4 @@
-import { useNFTs, useToken } from "../../../hooks/contract";
+import { useToken } from "../../../hooks/contract";
 import {
   Text,
   Heading,

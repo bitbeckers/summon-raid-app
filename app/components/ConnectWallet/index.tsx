@@ -1,4 +1,4 @@
-import { Button, Text } from "@raidguild/design-system";
+import { Button } from "@raidguild/design-system";
 import { formatAddress, useWallet } from "@raidguild/quiver";
 
 const ConnectWallet: React.FC = () => {

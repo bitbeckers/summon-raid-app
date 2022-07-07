@@ -6,7 +6,6 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  gql,
 } from "@apollo/client";
 import { RGThemeProvider, Flex, Spacer } from "@raidguild/design-system";
 import type { AppProps } from "next/app";

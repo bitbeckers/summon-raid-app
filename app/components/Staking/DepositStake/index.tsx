@@ -1,10 +1,9 @@
-import { useNFTs, useStaking, useToken } from "../../hooks/contract";
+import { useStaking  } from "../../../hooks/contract";
 import {
   Text,
   Heading,
   Card,
   Button,
-  Input,
   FormControl,
   NumberInput,
   NumberDecrementStepper,
@@ -21,7 +20,6 @@ interface Values {
 }
 
 const DepositStake: React.FC = () => {
-  const { address } = useWallet();
   const { stake } = useStaking();
 
   const onStake = async (values: Values) => {

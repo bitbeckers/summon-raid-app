@@ -1,9 +1,9 @@
 import AllStakes from "../components/Staking/AllStakes";
-import Approve from "../components/Approve";
-import ClaimRewards from "../components/ClaimRewards";
-import DepositStake from "../components/DepositStake";
-import StakeOverview from "../components/StakeOverview";
-import WithdrawStake from "../components/WithdrawStake";
+import Approve from "../components/ERC20/Approve";
+import ClaimRewards from "../components/Staking/ClaimRewards";
+import DepositStake from "../components/Staking/DepositStake";
+import StakeOverview from "../components/Staking/StakeOverview";
+import WithdrawStake from "../components/Staking/WithdrawStake";
 import { Flex, Stack, Heading } from "@raidguild/design-system";
 import type { NextPage } from "next";
 

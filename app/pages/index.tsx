@@ -1,10 +1,7 @@
 import {
   Flex,
   Stack,
-  Text,
   Heading,
-  Card,
-  RoleBadge,
   Divider,
 } from "@raidguild/design-system";
 import type { NextPage } from "next";

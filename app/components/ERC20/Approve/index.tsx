@@ -1,10 +1,9 @@
-import { useNFTs, useStaking, useToken } from "../../hooks/contract";
+import { useStaking, useToken } from "../../../hooks/contract";
 import {
   Text,
   Heading,
   Card,
   Button,
-  Input,
   FormControl,
   NumberInput,
   NumberDecrementStepper,
@@ -15,7 +14,6 @@ import {
 import { useReadContract, useWallet } from "@raidguild/quiver";
 import { ethers } from "ethers";
 import { Formik, Form } from "formik";
-import { useEffect } from "react";
 
 interface Values {
   amount: string;
@@ -24,7 +22,7 @@ interface Values {
 const Approve: React.FC = () => {
   const { address } = useWallet();
   const { approve, token } = useToken();
-  const { stake, staking } = useStaking();
+  const { staking } = useStaking();
 
   const { response: allowance } = useReadContract(token, "allowance", [
     address || "",

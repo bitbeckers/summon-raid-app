@@ -1,4 +1,4 @@
-import { useNFTs, useToken } from "../../../hooks/contract";
+import { useNFTs } from "../../../hooks/contract";
 import {
   Text,
   Heading,
@@ -6,11 +6,6 @@ import {
   Button,
   Input,
   FormControl,
-  NumberInput,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInputField,
-  NumberInputStepper,
 } from "@raidguild/design-system";
 import { useWallet } from "@raidguild/quiver";
 import { ethers } from "ethers";

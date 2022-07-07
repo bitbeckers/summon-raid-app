@@ -4,7 +4,7 @@ import { formatAddress } from "@raidguild/quiver";
 import { ethers } from "ethers";
 
 const AllStakes: React.FC = () => {
-  const { loading, allStakes } = useAllStakes();
+  const { allStakes } = useAllStakes();
 
   const userStake = (stake: StakeResponse) => {
     return (

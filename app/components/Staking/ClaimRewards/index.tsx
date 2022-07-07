@@ -1,8 +1,6 @@
-import { useStaking } from "../../hooks/contract";
+import { useStaking } from "../../../hooks/contract";
 import { Text, Heading, Card, Button } from "@raidguild/design-system";
-import { useWallet } from "@raidguild/quiver";
 import { ethers } from "ethers";
-import { Formik, Form } from "formik";
 
 const ClaimRewards: React.FC = () => {
   const { claimRewards, stakeRewards } = useStaking();
