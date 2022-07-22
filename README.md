@@ -2,6 +2,7 @@
 
 ## QUICKSTART
 
+0. Make sure to use Node 16. [NVM](https://github.com/nvm-sh/nvm) is your friend
 1. `yarn` to install all packages and dependencies
 2. Create `.env` file in `./evm` based of `./evm/.env.example`
    > for now, the mnemonic is the most important since this is local)
@@ -64,6 +65,8 @@ In case you need more complex data objects, or want to reduce multiple get calls
 - Run `yarn create:local` from `./graph`
 
 Inspect your Graph on http://localhost:8000/subgraphs/name/summon/raid-app/graphql
+
+For [unit testing the Graph](https://thegraph.com/docs/en/developing/unit-testing-framework/) we use [matchstick](https://github.com/LimeChain/matchstick)
 
 #### Local integration
 

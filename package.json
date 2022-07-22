@@ -6,11 +6,17 @@
   "author": "bitbeckers <code@bitbeckers.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "app",
-    "evm",
-    "graph"
-  ],
+  "workspaces": {
+    "packages": [
+      "app",
+      "evm",
+      "graph"
+    ],
+    "nohoist": [
+      "**/matchstick-as",
+      "**/@graphprotocol/**"
+    ]
+  },
   "scripts": {
     "prestart": "yarn workspace evm typechain && yarn workspace evm test",
     "start:graph": "yarn workspace graph deploy:local",
