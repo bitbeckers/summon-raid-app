@@ -9,6 +9,7 @@ import {
 import { contractAddresses } from "../utils/constants";
 import { toast } from "@chakra-ui/react";
 import {
+  parseTxErrorMessage,
   useReadContract,
   useTokenBalance,
   useTypedContract,
@@ -17,6 +18,7 @@ import {
 } from "@raidguild/quiver";
 import _ from "lodash";
 import { useEffect, useState } from "react";
+import { useToast } from "@raidguild/design-system";
 
 const useNFTContract = () =>
   useTypedContract<ERC721_NFT>(
@@ -25,9 +27,31 @@ const useNFTContract = () =>
   );
 
 export const useNFTs = () => {
+  const toast = useToast();
   const { address } = useWallet();
   const { contract: nft } = useNFTContract();
-  const { mutate: mint } = useWriteContract(nft, "safeMint");
+  const { mutate: mint } = useWriteContract(nft, "safeMint", {
+    onError: (e) => {
+      toast({
+        title: `Couldn't mint NFT: ${parseTxErrorMessage(e)}`,
+        status: "error",
+      });
+      throw new Error(e.message);
+    },
+    onResponse: () => {
+      toast({
+        title: `Minting NFT`,
+        status: "info",
+        duration: 30000,
+      });
+    },
+    onConfirmation: () => {
+      toast({
+        title: "NFT minted",
+        status: "success",
+      });
+    },
+  });
   const { response: owner } = useReadContract(nft, "owner", []);
   const balance = useTokenBalance(nft, address || "", 2000);
 
@@ -72,10 +96,4 @@ export const useNFTMetaData = (tokenID: string | number) => {
   }, [metadataUri]);
 
   return { metadata, nftUri };
-};
-
-export const onError = (error: any) => {
-  toast.notify(error?.data?.message || error.message, {
-    status: "error",
-  });
 };
