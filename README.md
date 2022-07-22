@@ -21,7 +21,7 @@
 
 Connect you wallet to RPC `http://localhost:8545/`
 
-Changes to front-end will be live, changed to smart-contract code require restart
+Changes to front-end will be live, changes to smart-contract code require restart
 
 ## DEVELOPMENT
 
@@ -60,7 +60,7 @@ In case you need more complex data objects, or want to reduce multiple get calls
 
   > Define the data processing from events from source to entities and relations in schema
 
-- Run `yarn setup` from `./graph`
+- Run `yarn start:local` from `./graph`
   > Create Docker-compose instance
 - Run `yarn create:local` from `./graph`
 
@@ -77,7 +77,7 @@ For [unit testing the Graph](https://thegraph.com/docs/en/developing/unit-testin
   > Inspect app on localhost:3000
   > Remember to connect your wallet to RPC localhost:8545
 
-- Run yarn start:grap`from`./`
+- Run `yarn start:graph` from`./`
 
 Play around with the interaction. The second derived address in your wallet is the owner of the token as you can see under ERC20
 
