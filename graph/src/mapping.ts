@@ -1,7 +1,7 @@
 import {
   Staked,
   Withdrawn,
-  RewardPaid,
+  RewardPaid
 } from "../generated/Staking_Pool/Staking_Pool";
 import { Transfer } from "../generated/Token/ERC20_Token";
 import {
@@ -11,7 +11,7 @@ import {
   Transaction,
   TransactionReceipt,
   TokenBalance,
-  Token,
+  Token
 } from "../generated/schema";
 import { Address, BigInt, ethereum } from "@graphprotocol/graph-ts";
 import { newMockEvent } from "matchstick-as";
@@ -178,42 +178,4 @@ function updateUserBalance(user: User, event: Transfer, token: Token): void {
     );
   }
   tokenBalanceUser.save();
-}
-
-export function createTransferEvent(
-  id: string,
-  from: string,
-  to: string,
-  value: BigInt
-): Transfer {
-  let mockEvent = changetype<Transfer>(newMockEvent());
-  let transferEvent = new Transfer(
-    mockEvent.address,
-    mockEvent.logIndex,
-    mockEvent.transactionLogIndex,
-    mockEvent.logType,
-    mockEvent.block,
-    mockEvent.transaction,
-    mockEvent.parameters
-  );
-  transferEvent.parameters = new Array();
-
-  let fromParam = new ethereum.EventParam(
-    "from",
-    ethereum.Value.fromAddress(Address.fromString(from))
-  );
-  let toParam = new ethereum.EventParam(
-    "to",
-    ethereum.Value.fromAddress(Address.fromString(to))
-  );
-  let valueParam = new ethereum.EventParam(
-    "value",
-    ethereum.Value.fromUnsignedBigInt(value)
-  );
-
-  transferEvent.parameters.push(fromParam);
-  transferEvent.parameters.push(toParam);
-  transferEvent.parameters.push(valueParam);
-
-  return transferEvent;
 }

@@ -1,7 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 
 const GET_ALL_STAKES = gql`
-  query {
+  query AllStakes {
     stakes {
       id
       amount
@@ -14,7 +14,8 @@ const GET_ALL_STAKES = gql`
 
 export const useAllStakes = () => {
   const { loading, error, data } = useQuery<{ stakes: StakeResponse[] }>(
-    GET_ALL_STAKES
+    GET_ALL_STAKES,
+    { pollInterval: 5000 }
   );
 
   return { loading, allStakes: data?.stakes };

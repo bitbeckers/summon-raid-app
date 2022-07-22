@@ -12,16 +12,16 @@
    > Use addresses from `./evm/deployments/localhost` in `./app/.env`
 5. From root dir `./` run `yarn start`
 
-Yarn start triggers, in order:
+`Yarn start` triggers, in order:
 
-- the smart contract test suite
-- typechain to provide the front end with typings for Quiver
-- `hardhat node` from `./evm/` instance for local evm chain
-- `yarn dev` from `./app` for local frontend on `localhost:3000`
+1. the smart contract test suite
+2. typechain to provide the front end with typings for Quiver
+3. `hardhat node` from `./evm/` instance for local evm chain
+4. `yarn dev` from `./app` for local frontend on `localhost:3000`
 
 Connect you wallet to RPC `http://localhost:8545/`
 
-Changes to front-end will be live, changed to smart-contract code require restart
+Changes to front-end will be live, changes to smart-contract code require restart
 
 ## DEVELOPMENT
 
@@ -60,7 +60,7 @@ In case you need more complex data objects, or want to reduce multiple get calls
 
   > Define the data processing from events from source to entities and relations in schema
 
-- Run `yarn setup` from `./graph`
+- Run `yarn start:local` from `./graph`
   > Create Docker-compose instance
 - Run `yarn create:local` from `./graph`
 
@@ -77,7 +77,8 @@ For [unit testing the Graph](https://thegraph.com/docs/en/developing/unit-testin
   > Inspect app on localhost:3000
   > Remember to connect your wallet to RPC localhost:8545
 
-- Run yarn start:grap`from`./`
+- Run `yarn start:graph` from`./`
+- When done, run `yarn stop:local` from `./graph` to clean up docker instance. If you don't do this, blocks will get out of sync and the next run will crash.
 
 Play around with the interaction. The second derived address in your wallet is the owner of the token as you can see under ERC20
 
@@ -122,7 +123,3 @@ Check out Vercel
 
 - [Solidity-template](https://github.com/PaulRBerg/solidity-template)
 - [Hardhat-deploy](https://github.com/wighawag/hardhat-deploy/tree/master)
-
-## TODO
-
--[ ] Error handling and toasts -[X] Add Graph module -[X] Staking pools contract and tests

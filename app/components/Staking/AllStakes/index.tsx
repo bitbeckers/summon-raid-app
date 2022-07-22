@@ -14,6 +14,8 @@ const AllStakes: React.FC = () => {
     );
   };
 
+  console.log("All stakes: ", allStakes);
+
   return (
     <>
       <Card

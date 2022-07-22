@@ -1,22 +1,14 @@
-import {
-  ERC20_Token,
-  ERC20_Token__factory,
-  ERC721_NFT,
-  ERC721_NFT__factory,
-  Staking_Pool,
-  Staking_Pool__factory,
-} from "../types/typechain";
+import { Staking_Pool, Staking_Pool__factory } from "../types/typechain";
 import { contractAddresses } from "../utils/constants";
-import { toast } from "@chakra-ui/react";
+import { useToast } from "@raidguild/design-system";
 import {
+  parseTxErrorMessage,
   useReadContract,
-  useTokenBalance,
   useTypedContract,
   useWallet,
   useWriteContract,
 } from "@raidguild/quiver";
 import _ from "lodash";
-import { useEffect, useState } from "react";
 
 const useStakingPoolContract = () =>
   useTypedContract<Staking_Pool>(
@@ -25,11 +17,75 @@ const useStakingPoolContract = () =>
   );
 
 export const useStaking = () => {
+  const toast = useToast();
   const { address } = useWallet();
   const { contract: staking } = useStakingPoolContract();
-  const { mutate: stake } = useWriteContract(staking, "stake");
-  const { mutate: withdraw } = useWriteContract(staking, "withdraw");
-  const { mutate: claimRewards } = useWriteContract(staking, "claimRewards");
+  const { mutate: stake } = useWriteContract(staking, "stake", {
+    onError: (e) => {
+      toast({
+        title: `Couldn't stake: ${parseTxErrorMessage(e)}`,
+        status: "error",
+      });
+      throw new Error(e.message);
+    },
+    onResponse: () => {
+      toast({
+        title: `Staking`,
+        status: "info",
+        duration: 30000,
+      });
+    },
+    onConfirmation: () => {
+      toast({
+        title: "Staking success",
+        status: "success",
+      });
+    },
+  });
+  const { mutate: withdraw } = useWriteContract(staking, "withdraw", {
+    onError: (e) => {
+      toast({
+        title: `Couldn't withdraw stake: ${parseTxErrorMessage(e)}`,
+        status: "error",
+      });
+      throw new Error(e.message);
+    },
+    onResponse: () => {
+      toast({
+        title: `Withdrawing stake`,
+        status: "info",
+        duration: 30000,
+      });
+    },
+    onConfirmation: () => {
+      toast({
+        title: "Stake withdrawn",
+        status: "success",
+      });
+    },
+  });
+  const { mutate: claimRewards } = useWriteContract(staking, "claimRewards", {
+    onError: (e) => {
+      toast({
+        title: `Couldn't claim rewards: ${parseTxErrorMessage(e)}`,
+        status: "error",
+      });
+      throw new Error(e.message);
+    },
+    onResponse: () => {
+      toast({
+        title: `Claiming rewards`,
+        status: "info",
+        duration: 30000,
+      });
+    },
+    onConfirmation: () => {
+      toast({
+        title: "Rewards claimed",
+        status: "success",
+      });
+    },
+  });
 
   const { response: stakedBalance } = useReadContract(
     staking,
@@ -51,12 +107,4 @@ export const useStaking = () => {
     stakeRewards,
     staking,
   };
-};
-
-
-
-export const onError = (error: any) => {
-  toast.notify(error?.data?.message || error.message, {
-    status: "error",
-  });
 };
