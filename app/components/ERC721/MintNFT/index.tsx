@@ -1,4 +1,4 @@
-import { useNFTs } from "../../../hooks/contract";
+import { useNFTs } from "../../../hooks/erc721";
 import {
   Text,
   Heading,

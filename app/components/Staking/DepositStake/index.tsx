@@ -1,4 +1,4 @@
-import { useStaking  } from "../../../hooks/contract";
+import { useStaking  } from "../../../hooks/staking";
 import {
   Text,
   Heading,
@@ -11,7 +11,6 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from "@raidguild/design-system";
-import { useWallet } from "@raidguild/quiver";
 import { ethers } from "ethers";
 import { Formik, Form } from "formik";
 

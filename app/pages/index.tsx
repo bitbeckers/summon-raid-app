@@ -1,12 +1,6 @@
-import {
-  Flex,
-  Stack,
-  Heading,
-  Divider,
-} from "@raidguild/design-system";
-import type { NextPage } from "next";
 import { JourneyCards } from "../components/JourneyCards";
-import { RoleCards } from "../components/RoleCards";
+import { Flex, Stack, Heading, Divider } from "@raidguild/design-system";
+import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
@@ -14,8 +8,6 @@ const Home: NextPage = () => {
       <Flex direction="column" justify="space-between" h="80vh" w="100%">
         <Stack align="center" spacing="5vh">
           <Heading size="3xl">Raid Guild App Starter</Heading>
-          <RoleCards />
-          <Divider w="80%" />
           <JourneyCards />
         </Stack>
       </Flex>

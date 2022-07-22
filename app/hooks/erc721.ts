@@ -18,79 +18,11 @@ import {
 import _ from "lodash";
 import { useEffect, useState } from "react";
 
-const useTokenContract = () =>
-  useTypedContract<ERC20_Token>(
-    contractAddresses.erc20TokenAddress,
-    ERC20_Token__factory
-  );
-
 const useNFTContract = () =>
   useTypedContract<ERC721_NFT>(
     contractAddresses.erc721NFTAddress,
     ERC721_NFT__factory
   );
-
-const useStakingPoolContract = () =>
-  useTypedContract<Staking_Pool>(
-    contractAddresses.stakingPoolAddress,
-    Staking_Pool__factory
-  );
-
-export const useToken = () => {
-  const { address } = useWallet();
-  const { contract: token } = useTokenContract();
-  const { mutate: approve } = useWriteContract(token, "approve");
-
-  const { mutate: mintTokens } = useWriteContract(token, "mint");
-  const { mutate: transferOwnership } = useWriteContract(
-    token,
-    "transferOwnership"
-  );
-  const { mutate: transferTokenTo } = useWriteContract(token, "transfer");
-
-  const { response: owner } = useReadContract(token, "owner", []);
-
-  const balance = useTokenBalance(token, address || "", 2000);
-
-  return {
-    balance: balance?.toString(),
-    approve,
-    mintTokens,
-    transferOwnership,
-    transferTokenTo,
-    owner,
-    token,
-  };
-};
-
-export const useStaking = () => {
-  const { address } = useWallet();
-  const { contract: staking } = useStakingPoolContract();
-  const { mutate: stake } = useWriteContract(staking, "stake");
-  const { mutate: withdraw } = useWriteContract(staking, "withdraw");
-  const { mutate: claimRewards } = useWriteContract(staking, "claimRewards");
-
-  const { response: stakedBalance } = useReadContract(
-    staking,
-    "getStakedBalance",
-    [address || ""]
-  );
-
-  const { response: stakeRewards } = useReadContract(
-    staking,
-    "getStakingReward",
-    [address || ""]
-  );
-
-  return {
-    stake,
-    withdraw,
-    claimRewards,
-    stakedBalance,
-    stakeRewards,
-    staking,
-  };
-};
 
 export const useNFTs = () => {
   const { address } = useWallet();
