@@ -1,7 +1,7 @@
 import { useQuery, gql } from "@apollo/client";
 
 const GET_ALL_STAKES = gql`
-  query AllSakes {
+  query AllStakes {
     stakes {
       id
       amount

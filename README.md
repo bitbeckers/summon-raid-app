@@ -78,6 +78,7 @@ For [unit testing the Graph](https://thegraph.com/docs/en/developing/unit-testin
   > Remember to connect your wallet to RPC localhost:8545
 
 - Run `yarn start:graph` from`./`
+- When done, run `yarn stop:local` from `./graph` to clean up docker instance. If you don't do this, blocks will get out of sync and the next run will crash.
 
 Play around with the interaction. The second derived address in your wallet is the owner of the token as you can see under ERC20
 
@@ -122,7 +123,3 @@ Check out Vercel
 
 - [Solidity-template](https://github.com/PaulRBerg/solidity-template)
 - [Hardhat-deploy](https://github.com/wighawag/hardhat-deploy/tree/master)
-
-## TODO
-
--[ ] Error handling and toasts -[X] Add Graph module -[X] Staking pools contract and tests
