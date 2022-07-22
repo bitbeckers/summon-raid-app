@@ -12,12 +12,12 @@
    > Use addresses from `./evm/deployments/localhost` in `./app/.env`
 5. From root dir `./` run `yarn start`
 
-Yarn start triggers, in order:
+`Yarn start` triggers, in order:
 
-- the smart contract test suite
-- typechain to provide the front end with typings for Quiver
-- `hardhat node` from `./evm/` instance for local evm chain
-- `yarn dev` from `./app` for local frontend on `localhost:3000`
+1. the smart contract test suite
+2. typechain to provide the front end with typings for Quiver
+3. `hardhat node` from `./evm/` instance for local evm chain
+4. `yarn dev` from `./app` for local frontend on `localhost:3000`
 
 Connect you wallet to RPC `http://localhost:8545/`
 
