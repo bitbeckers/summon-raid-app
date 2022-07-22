@@ -1,4 +1,4 @@
-import { useNFTMetaData } from "../../../hooks/contract";
+import { useNFTMetaData } from "../../../hooks/erc721";
 import {
   Text,
   Heading,

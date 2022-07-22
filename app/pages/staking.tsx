@@ -1,13 +1,17 @@
-import AllStakes from "../components/Staking/AllStakes";
 import Approve from "../components/ERC20/Approve";
-import ClaimRewards from "../components/Staking/ClaimRewards";
-import DepositStake from "../components/Staking/DepositStake";
-import StakeOverview from "../components/Staking/StakeOverview";
-import WithdrawStake from "../components/Staking/WithdrawStake";
-import { Flex, Stack, Heading } from "@raidguild/design-system";
+import {
+  AllStakes,
+  ClaimRewards,
+  DepositStake,
+  StakeOverview,
+  WithdrawStake,
+} from "../components/Staking";
+import { useStaking } from "../hooks/staking";
+import { Flex, Stack, Heading, Text } from "@raidguild/design-system";
 import type { NextPage } from "next";
 
 const ERC721: NextPage = () => {
+  const { staking } = useStaking();
   return (
     <Stack dir="column" w="100%" justify={"center"} align="center">
       <Heading size="3xl">Basic staking pool interactions</Heading>
@@ -19,7 +23,11 @@ const ERC721: NextPage = () => {
         align="center"
         justify={"center"}
       >
-        <Approve />
+        {staking?.address ? (
+          <Approve contractAddress={staking?.address} />
+        ) : (
+          <Text>No staking contract(address) found</Text>
+        )}
         <DepositStake />
         <StakeOverview />
         <WithdrawStake />

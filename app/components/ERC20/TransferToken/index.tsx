@@ -1,4 +1,4 @@
-import { useToken } from "../../../hooks/contract";
+import { useToken } from "../../../hooks/erc20";
 import {
   Text,
   Heading,

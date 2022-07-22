@@ -1,4 +1,4 @@
-import { useStaking } from "../../../hooks/contract";
+import { useStaking } from "../../../hooks/staking";
 import { Text, Heading, Card } from "@raidguild/design-system";
 import { ethers } from "ethers";
 

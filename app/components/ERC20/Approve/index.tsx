@@ -1,4 +1,4 @@
-import { useStaking, useToken } from "../../../hooks/contract";
+import { useToken } from "../../../hooks/erc20";
 import {
   Text,
   Heading,
@@ -12,27 +12,28 @@ import {
   NumberInputStepper,
 } from "@raidguild/design-system";
 import { useReadContract, useWallet } from "@raidguild/quiver";
-import { ethers } from "ethers";
+import { Contract, ethers } from "ethers";
 import { Formik, Form } from "formik";
 
 interface Values {
   amount: string;
 }
 
-const Approve: React.FC = () => {
+const Approve: React.FC<{ contractAddress: string }> = ({
+  contractAddress,
+}) => {
   const { address } = useWallet();
   const { approve, token } = useToken();
-  const { staking } = useStaking();
 
   const { response: allowance } = useReadContract(token, "allowance", [
     address || "",
-    staking?.address || "",
+    contractAddress || "",
   ]);
 
   const onApprove = async (values: Values) => {
     console.log("values: ", values);
-    if (values.amount && staking?.address && address) {
-      await approve(staking?.address, ethers.utils.parseEther(values.amount));
+    if (values.amount && contractAddress && address) {
+      await approve(contractAddress, ethers.utils.parseEther(values.amount));
     }
   };
 
